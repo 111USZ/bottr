@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Map with Telegram Integration</title>
+    <link rel="stylesheet" href="./main.css">
+<body>
+    <form id="telegramForm">
+        <label for="name">Имя:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="phone">Телефон:</label><br>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="message">Сообщение:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+
+        <label for="photo">Фото:</label><br>
+        <input type="file" id="photo" name="photo" accept="image/*"><br><br>
+
+        <img id="preview" src="" alt="Предварительный просмотр" style="display: none;">
+
+        <div id="map"></div><br><br>
+        <input type="submit" value="Отправить">
+    </form>
+
+    <!-- Подключаем Google Maps API и наш JavaScript -->
+   <script src="https://developers.google.com/maps?hl=ru"></script>
+    <script src="./main.js"></script>
+    <script>
+        // Обновляем предварительный просмотр фотографии
+        document.getElementById('photo').addEventListener('change', function() {
+            const preview = document.getElementById('preview');
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
